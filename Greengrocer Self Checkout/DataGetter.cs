@@ -8,10 +8,9 @@ using System.Data.SqlClient;
 namespace Greengrocer_Self_Checkout
 {
   public  abstract class DataGetter
-    {  
-        public void GetInList(String con)
+    {
+        public void GetInList(string con)
         {
-            
             SqlConnection coco = new SqlConnection(con);
             coco.Open();
             SqlCommand cmd = coco.CreateCommand();

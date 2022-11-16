@@ -20,7 +20,7 @@ namespace Greengrocer_Self_Checkout
             GetInList(con);
             gr = new Grid();
         }
-        
+
         private void GridSize(int size)
         {
             gr.ColumnDefinitions.Clear();
