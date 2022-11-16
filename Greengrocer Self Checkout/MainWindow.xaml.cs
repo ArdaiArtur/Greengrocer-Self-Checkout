@@ -79,44 +79,17 @@ namespace Greengrocer_Self_Checkout
 
         private void Weight_TextChanged(object sender, TextChangedEventArgs e)
         {
-
-
-            
-
-                try
-                {
-                    Show.Text = Math.Round((multi * Convert.ToDouble(Weight.Text)), 2).ToString();
-
-                }
-                catch (Exception)
-                {
-                    Show.Text = "Invalid weight";
-
-                }
-
-            
-        }
-
-
-        public void DoEvents()
-        {
-            DispatcherFrame frame = new DispatcherFrame(true);
-            Dispatcher.CurrentDispatcher.BeginInvoke
-            (
-
-            DispatcherPriority.Background, (SendOrPostCallback)delegate (object arg)
+            try
             {
-                var f = arg as DispatcherFrame;
-                f.Continue = false;
-            },
-            frame);
-            Dispatcher.PushFrame(frame);
+             Show.Text = Math.Round((multi * Convert.ToDouble(Weight.Text)), 2).ToString();
 
+            }
+            catch (Exception)
+            {
+                Show.Text = "Invalid weight";
+
+            }
         }
-
-     
-
-       
 
         private void grid1_MouseMove(object sender, MouseEventArgs e)
         {
