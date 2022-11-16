@@ -1,10 +1,13 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Linq;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace Greengrocer_Self_Checkout
 {
@@ -61,8 +64,23 @@ namespace Greengrocer_Self_Checkout
                         bt.Content = MainWindow.fufu[counter].Name;
                         bt.Click += new RoutedEventHandler(Button_Click);
                         bt.MouseEnter += new MouseEventHandler (Button_MouseEnter);
-                        bt.MouseLeave += new MouseEventHandler(Button_MouseLeave);
-                        _ = gr.Children.Add(bt);
+                        bt.MouseLeave += new MouseEventHandler(Button_MouseLeave);                       
+                        var brush = new ImageBrush();
+                        try
+                        {   
+                            brush.ImageSource = new BitmapImage(new Uri("img/" + MainWindow.fufu[counter].Name + ".jpg", UriKind.Relative));
+                           
+                        }
+                        catch(FileNotFoundException)
+                        {
+                            _ = gr.Children.Add(bt);
+                        }
+                         bt.Background = brush;
+                           _ = gr.Children.Add(bt);
+                        
+                       
+                       
+                        
                     }
                     counter++;
                 }
@@ -151,6 +169,17 @@ namespace Greengrocer_Self_Checkout
                         bt.Click += new RoutedEventHandler(Button_ClickVeve);
                         bt.MouseEnter += new MouseEventHandler(Button_MouseEnterV);
                         bt.MouseLeave += new MouseEventHandler(Button_MouseLeaveV);
+                        var brush = new ImageBrush();
+                        try
+                        {
+                            brush.ImageSource = new BitmapImage(new Uri("img/" + MainWindow.veve[counter].Name + ".jpg", UriKind.Relative));
+
+                        }
+                        catch (FileNotFoundException)
+                        {
+                            _ = gr.Children.Add(bt);
+                        }
+                        bt.Background = brush;
                         _ = gr.Children.Add(bt);
                     }
                     counter++;
