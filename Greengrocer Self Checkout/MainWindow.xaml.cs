@@ -23,6 +23,7 @@ namespace Greengrocer_Self_Checkout
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         public static List<Fruit> fufu = new List<Fruit>();
         public static List<Vegetables> veve = new List<Vegetables>();
         public static double multi = 0;
@@ -30,14 +31,13 @@ namespace Greengrocer_Self_Checkout
         public MainWindow()
         {
             InitializeComponent();
-
-
             // grid1.Children.Add(  bl.GridButon());
             grid2 = bl.GridButon();
 
             grid1.Children.Add(grid2);
-            Change.Content = "fufu";
-
+            Change.FontSize = 40;
+            Change.Content = "Fruits";
+            
             Show.Text = (multi * Convert.ToDouble(Weight.Text)).ToString();
             
         }
@@ -61,16 +61,18 @@ namespace Greengrocer_Self_Checkout
 
             // grid1.Children.Add(  bl.GridButon());
 #pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast
-            if (Change.Content == "fufu")
+            if (Change.Content == "Fruits")
 #pragma warning restore CS0252 // Possible unintended reference comparison; left hand side needs cast
             {
+                Change.FontSize = 30;
                 grid2 = bl.GridButonSwap();
-                Change.Content = "veve";
+                Change.Content = "Vegetables";
             }
             else
             {
+                Change.FontSize = 40;
                 grid2 = bl.GridButon();
-                Change.Content = "fufu";
+                Change.Content = "Fruits";
             }
             grid1.Children.Add(grid2);
         }
