@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Data.Entity;
 using System.Windows.Threading;
 using System.Threading;
+using System.Windows.Controls.Primitives;
 
 namespace Greengrocer_Self_Checkout
 {
@@ -35,8 +36,8 @@ namespace Greengrocer_Self_Checkout
             grid2 = bl.GridButon();
 
             grid1.Children.Add(grid2);
-            Change.FontSize = 40;
-            Change.Content = "Fruits";
+            Change.FontSize = 30;
+            Change.Content = "Vegetables";
             
             Show.Text = (multi * Convert.ToDouble(Weight.Text)).ToString();
             
@@ -52,7 +53,12 @@ namespace Greengrocer_Self_Checkout
         private void Done_Click(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
-           // Show.Text = b.Name;
+            // Show.Text = b.Name;
+            
+            PP.IsOpen = true;
+           
+            //(...)
+            
         }
 
         private void Change_Click(object sender, RoutedEventArgs e)
@@ -61,18 +67,18 @@ namespace Greengrocer_Self_Checkout
 
             // grid1.Children.Add(  bl.GridButon());
 #pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast
-            if (Change.Content == "Fruits")
+            if (Change.Content != "Fruits")
 #pragma warning restore CS0252 // Possible unintended reference comparison; left hand side needs cast
             {
-                Change.FontSize = 30;
+                Change.FontSize = 40;
                 grid2 = bl.GridButonSwap();
-                Change.Content = "Vegetables";
+                Change.Content = "Fruits";
             }
             else
             {
-                Change.FontSize = 40;
+                Change.FontSize = 30;
                 grid2 = bl.GridButon();
-                Change.Content = "Fruits";
+                Change.Content = "Vegetables";
             }
             grid1.Children.Add(grid2);
         }
@@ -108,4 +114,10 @@ namespace Greengrocer_Self_Checkout
         }
     }
 }
+
+
+
+
+
+
 
