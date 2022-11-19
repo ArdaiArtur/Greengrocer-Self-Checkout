@@ -181,8 +181,10 @@ namespace Greengrocer_Self_Checkout
             Button b = (Button)sender;
             //getting a fruit or vegi class from the lists by the name of the button which we selected  
           
-            var value = MainWindow.fufu.First(item => item.Name == b.Name).Price;
-            MainWindow.multi = value;
+            var value = MainWindow.fufu.First(item => item.Name == b.Name);
+            MainWindow.Getter = value;
+            MainWindow.multi = value.Price;
+            
           
 
         }
@@ -192,10 +194,11 @@ namespace Greengrocer_Self_Checkout
             Button b = (Button)sender;
             //getting a fruit or vegi class from the lists by the name of the button which we selected  
 
-            var value = MainWindow.veve.First(item => item.Name == b.Name).Price;
-            MainWindow.multi = value;
+            var value = MainWindow.veve.First(item => item.Name == b.Name);
+            MainWindow.Getter = value;
+            MainWindow.multi = value.Price;
             b.Content = value.ToString();
-
+            
         }
         
 

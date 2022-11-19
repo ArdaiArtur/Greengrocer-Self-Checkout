@@ -28,9 +28,13 @@ namespace Greengrocer_Self_Checkout
         public static List<Fruit> fufu = new List<Fruit>();
         public static List<Vegetables> veve = new List<Vegetables>();
         public static double multi = 0;
+        public static double SelecWeight ;
+        public static dynamic Getter;
         public ButtonLoader bl = new ButtonLoader();
         public MainWindow()
         {
+            
+          this.DataContext =Getter ;
             InitializeComponent();
             // grid1.Children.Add(  bl.GridButon());
             grid2 = bl.GridButon();
@@ -38,8 +42,16 @@ namespace Greengrocer_Self_Checkout
             grid1.Children.Add(grid2);
             Change.FontSize = 30;
             Change.Content = "Vegetables";
-            
-            Show.Text = (multi * Convert.ToDouble(Weight.Text)).ToString();
+            try
+            {
+                Show.Text = (multi * Convert.ToDouble(Weight.Text)).ToString();
+            }
+            catch (Exception)
+            {
+
+                Show.Text = "Invalid number";
+            }
+           
             
         }
 
@@ -54,11 +66,18 @@ namespace Greengrocer_Self_Checkout
         {
             Button b = (Button)sender;
             // Show.Text = b.Name;
-            
-            PP.IsOpen = true;
+            SelecWeight = Convert.ToDouble(Show.Text);
+            Popup popup = new Popup();
+            try
+            {
+            popup.Show();
+            }
+            catch (Exception)
+            {
+
+                
+            }
            
-            //(...)
-            
         }
 
         private void Change_Click(object sender, RoutedEventArgs e)
