@@ -30,6 +30,7 @@ namespace Greengrocer_Self_Checkout
         public static double multi = 0;
         public static double SelecWeight ;
         public static dynamic Getter;
+        public static List<dynamic> lis;
         public ButtonLoader bl = new ButtonLoader();
         public MainWindow()
         {

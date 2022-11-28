@@ -15,6 +15,9 @@ namespace Greengrocer_Self_Checkout
     {
         private readonly string con = Properties.Settings.Default.DataB;
         private readonly Grid  gr ;
+        private int buttoncount;
+        private dynamic ShowePrice;
+       
         public ButtonLoader()
         {
             GetInList(con);
@@ -44,7 +47,9 @@ namespace Greengrocer_Self_Checkout
                 gr.RowDefinitions.Add(c);
             }
         }
-        private void GridItemFufu(int size)
+
+        
+        private void GridItemFufu(int size,dynamic fufu)
         {
             int counter = 0;
            
@@ -54,13 +59,13 @@ namespace Greengrocer_Self_Checkout
                 for (int j = 0; j < size; j++)
                 {
 
-                    if (counter < MainWindow.fufu.Count)
+                    if (counter < fufu.Count)
                     {
                         
                         Button bt = new Button();
                         Grid.SetColumn(bt, j);
                         Grid.SetRow(bt, i);
-                        bt.Name = MainWindow.fufu[counter].Name;
+                        bt.Name = fufu[counter].Name;
                        
                         bt.Click += new RoutedEventHandler(Button_Click);
                         bt.MouseEnter += new MouseEventHandler (Button_MouseEnter);
@@ -68,15 +73,15 @@ namespace Greengrocer_Self_Checkout
 
 
 
-                        if (File.Exists("img/" + MainWindow.fufu[counter].Name + ".jpg"))
+                        if (File.Exists("img/" + fufu[counter].Name + ".jpg"))
                         {
                             var brush = new ImageBrush();
-                            brush.ImageSource = new BitmapImage(new Uri("img/" + MainWindow.fufu[counter].Name + ".jpg", UriKind.Relative));
+                            brush.ImageSource = new BitmapImage(new Uri("img/" +fufu[counter].Name + ".jpg", UriKind.Relative));
                             bt.Background = brush;
                         }
                         else
                         {
-                             bt.Content = MainWindow.fufu[counter].Name;
+                             bt.Content = fufu[counter].Name;
                         }
 
 
@@ -93,46 +98,7 @@ namespace Greengrocer_Self_Checkout
                 }
             }
         }
-        private void GridItemVeve(int size)
-        {
-            int counter = 0;
-
-            for (int i = 0; i < size; i++)
-            {
-                for (int j = 0; j < size; j++)
-                {
-
-                    if (counter < MainWindow.veve.Count)
-                    {
-
-                        Button bt = new Button();
-                        Grid.SetColumn(bt, j);
-                        Grid.SetRow(bt, i);
-                        bt.Name = MainWindow.veve[counter].Name;
-                       // bt.Content = MainWindow.veve[counter].Name;
-                        bt.Click += new RoutedEventHandler(Button_ClickVeve);
-                        bt.MouseEnter += new MouseEventHandler(Button_MouseEnterV);
-                        bt.MouseLeave += new MouseEventHandler(Button_MouseLeaveV);
-                        var brush = new ImageBrush();
-                        try
-                        {
-                            brush.ImageSource = new BitmapImage(new Uri("img/" + MainWindow.veve[counter].Name + ".jpg", UriKind.Relative));
-
-                        }
-                        catch (FileNotFoundException)
-                        {
-                            _ = gr.Children.Add(bt);
-                        }
-                        bt.Background = brush;
-                        Style style = new Style(typeof(Border));
-                        style.Setters.Add(new Setter(Border.CornerRadiusProperty, new CornerRadius(20)));
-                        bt.Resources.Add(typeof(Border), style);
-                        _ = gr.Children.Add(bt);
-                    }
-                    counter++;
-                }
-            }
-        }
+       
         public void Button_MouseLeave(object sender, MouseEventArgs e)
         {
             Button b = (Button)sender;
@@ -146,46 +112,52 @@ namespace Greengrocer_Self_Checkout
         public void Button_MouseEnter(object sender, MouseEventArgs e)
         {
             Button b = (Button)sender;
-
-            var value = MainWindow.fufu.First(item => item.Name == b.Name).Price;
+            try
+            {
+             var value = MainWindow.fufu.First(item => item.Name == b.Name).Price;
             //getting a fruit or vegi class from the lists by the name of the button which we selected
             //
             if (MainWindow.fufu.Count < 100)
-            b.FontSize = 66;
-            b.Content = value.ToString();
+             b.FontSize = 66;
+             b.Content = value.ToString();
+            }
+            catch (Exception)
+            {
+                var value = MainWindow.veve.First(item => item.Name == b.Name).Price;
+                //getting a fruit or vegi class from the lists by the name of the button which we selected
+                //
+                if (MainWindow.veve.Count < 100)
+                    b.FontSize = 66;
+                b.Content = value.ToString();
 
-        }
-
-        public void Button_MouseLeaveV(object sender, MouseEventArgs e)
-        {
-            Button b = (Button)sender;
-
-            //var value = MainWindow.fufu.First(item => item.Name == b.Name).Name;
-            //getting a fruit or vegi class from the lists by the name of the button which we selected  
-
-            b.Content = null;
-
-        }
-        public void Button_MouseEnterV(object sender, MouseEventArgs e)
-        {
-            Button b = (Button)sender;
-
-            var value = MainWindow.veve.First(item => item.Name == b.Name).Price;
-            //getting a fruit or vegi class from the lists by the name of the button which we selected  
-            if(MainWindow.veve.Count<100)
-            b.FontSize =66;
+            }
+           
             
 
-            b.Content = value.ToString();
-
         }
+
+    
 
         public void Button_Click(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
             //getting a fruit or vegi class from the lists by the name of the button which we selected  
-          
-            var value = MainWindow.fufu.First(item => item.Name == b.Name);
+            dynamic value;
+            try
+            {
+                 value = MainWindow.fufu.First(item => item.Name == b.Name);
+                //getting a fruit or vegi class from the lists by the name of the button which we selected
+                //
+                
+            }
+            catch (Exception)
+            {
+                 value = MainWindow.veve.First(item => item.Name == b.Name);
+                //getting a fruit or vegi class from the lists by the name of the button which we selected
+                //
+               
+
+            }
             MainWindow.Getter = value;
             MainWindow.multi = value.Price;
             
@@ -193,17 +165,7 @@ namespace Greengrocer_Self_Checkout
 
         }
 
-        public void Button_ClickVeve(object sender, RoutedEventArgs e)
-        {
-            Button b = (Button)sender;
-            //getting a fruit or vegi class from the lists by the name of the button which we selected  
-
-            var value = MainWindow.veve.First(item => item.Name == b.Name);
-            MainWindow.Getter = value;
-            MainWindow.multi = value.Price;
-            
-            
-        }
+      
         
 
         private void GridPozition(int a,int b)
@@ -214,21 +176,23 @@ namespace Greengrocer_Self_Checkout
        
         public Grid GridButon()
         {  
-            int buttoncount = (int)Math.Sqrt(MainWindow.fufu.Count) + 1;
+             buttoncount = (int)Math.Sqrt(MainWindow.fufu.Count) + 1;
             GridSize(buttoncount);
-            GridItemFufu(buttoncount);
+            
+            GridItemFufu(buttoncount,MainWindow.fufu);
             GridPozition(1, 1);
-          
+            ShowePrice = MainWindow.fufu;
             return gr;
+            
         }
         public Grid GridButonSwap()
         {
             gr.Children.Clear();
-            int buttoncount = (int)Math.Sqrt(MainWindow.veve.Count) + 1;
+            buttoncount = (int)Math.Sqrt(MainWindow.veve.Count) + 1;
             GridSize(buttoncount);
-            GridItemVeve(buttoncount);
+            GridItemFufu(buttoncount, MainWindow.veve);
             GridPozition(1, 1);
-
+            ShowePrice = MainWindow.veve;
             return gr;
         }
 
