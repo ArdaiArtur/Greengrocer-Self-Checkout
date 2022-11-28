@@ -23,7 +23,20 @@
             <Label x:Name="amaount" FontSize="25">Amaount:</Label>
             <Label x:Name="price" FontSize="25">Price:</Label>
             <Label x:Name="date" FontSize="25">Date:</Label>
-            <Button Name="Finish" Content="OK" Margin="40" Padding="10" Click="Finish_Click" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100"></Button>
+            <Button Name="Finish" Content="OK" Margin="40" Padding="10" Click="Finish_Click" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" BorderBrush="DarkCyan" FontSize="20" BorderThickness="2">
+                <Button.Background>
+                    <RadialGradientBrush >
+                        <GradientStop Color="White" Offset="0"/>
+                        <GradientStop Color="ForestGreen" Offset="1"/>
+                        <GradientStop Color="AliceBlue" Offset="0.536"/>
+                    </RadialGradientBrush>
+                </Button.Background>
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="20"></Setter>
+                    </Style> 
+                </Button.Resources>
+            </Button>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1"   Margin="10" Orientation="Vertical" Grid.RowSpan="2" Grid.ColumnSpan="2" >
             <TextBlock FontSize="25" Text="{Binding Name,Mode=OneWay}" Padding="5" ></TextBlock>
