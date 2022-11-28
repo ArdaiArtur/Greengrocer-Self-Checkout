@@ -26,8 +26,8 @@
             <Button Name="Finish" Content="OK" Margin="40" Padding="10" Click="Finish_Click" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" BorderBrush="DarkCyan" FontSize="20" BorderThickness="2">
                 <Button.Background>
                     <RadialGradientBrush >
-                        <GradientStop Color="White" Offset="0"/>
-                        <GradientStop Color="ForestGreen" Offset="1"/>
+                        <GradientStop Color="White" Offset="0.6"/>
+                        <GradientStop Color="ForestGreen" Offset="1.5"/>
                         <GradientStop Color="AliceBlue" Offset="0.536"/>
                     </RadialGradientBrush>
                 </Button.Background>
