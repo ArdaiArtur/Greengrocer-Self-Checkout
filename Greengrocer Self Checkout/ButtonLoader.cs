@@ -61,21 +61,25 @@ namespace Greengrocer_Self_Checkout
                         Grid.SetColumn(bt, j);
                         Grid.SetRow(bt, i);
                         bt.Name = MainWindow.fufu[counter].Name;
-                       // bt.Content = MainWindow.fufu[counter].Name;
+                       
                         bt.Click += new RoutedEventHandler(Button_Click);
                         bt.MouseEnter += new MouseEventHandler (Button_MouseEnter);
-                        bt.MouseLeave += new MouseEventHandler(Button_MouseLeave);                       
-                        var brush = new ImageBrush();
-                        try
-                        {   
-                            brush.ImageSource = new BitmapImage(new Uri("img/" + MainWindow.fufu[counter].Name + ".jpg", UriKind.Relative));
-                           
-                        }
-                        catch(FileNotFoundException)
+                        bt.MouseLeave += new MouseEventHandler(Button_MouseLeave);
+
+
+
+                        if (File.Exists("img/" + MainWindow.fufu[counter].Name + ".jpg"))
                         {
-                            _ = gr.Children.Add(bt);
+                            var brush = new ImageBrush();
+                            brush.ImageSource = new BitmapImage(new Uri("img/" + MainWindow.fufu[counter].Name + ".jpg", UriKind.Relative));
+                            bt.Background = brush;
                         }
-                         bt.Background = brush;
+                        else
+                        {
+                             bt.Content = MainWindow.fufu[counter].Name;
+                        }
+
+
                         Style style = new Style(typeof(Border));
                         style.Setters.Add(new Setter(Border.CornerRadiusProperty, new CornerRadius(20)));
                         bt.Resources.Add(typeof(Border), style);
@@ -197,7 +201,7 @@ namespace Greengrocer_Self_Checkout
             var value = MainWindow.veve.First(item => item.Name == b.Name);
             MainWindow.Getter = value;
             MainWindow.multi = value.Price;
-            b.Content = value.ToString();
+            
             
         }
         

@@ -66,7 +66,7 @@ namespace Greengrocer_Self_Checkout
         {
             Button b = (Button)sender;
             // Show.Text = b.Name;
-            SelecWeight = Convert.ToDouble(Show.Text);
+            SelecWeight = Convert.ToDouble(Weight.Text);
             Popup popup = new Popup();
             try
             {

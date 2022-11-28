@@ -25,7 +25,7 @@ namespace Greengrocer_Self_Checkout
 
 
                 Amaount.Text = MainWindow.SelecWeight.ToString();
-                Pprice.Text = Math.Round(MainWindow.Getter.Price * MainWindow.SelecWeight).ToString();
+                Pprice.Text = Math.Round(MainWindow.Getter.Price * MainWindow.SelecWeight,2).ToString();
                 ddate.Text += DateTime.Now.ToString();
             
             
