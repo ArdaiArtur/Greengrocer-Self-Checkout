@@ -9,6 +9,7 @@ namespace Greengrocer_Self_Checkout
 {
   public  abstract class DataGetter
     {
+        //there are only 2 tabels so i use 2 list for each tabel to load the data from it 
         public void GetInList(string con)
         {
             SqlConnection coco = new SqlConnection(con);

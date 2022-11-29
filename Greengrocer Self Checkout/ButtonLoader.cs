@@ -23,7 +23,7 @@ namespace Greengrocer_Self_Checkout
             GetInList(con);
             gr = new Grid();
         }
-
+        
         private void GridSize(int size)
         {
             gr.ColumnDefinitions.Clear();
@@ -48,7 +48,7 @@ namespace Greengrocer_Self_Checkout
             }
         }
 
-        
+        //creating the buttons for the grid 
         private void GridItemFufu(int size,dynamic fufu)
         {
             int counter = 0;
@@ -167,13 +167,14 @@ namespace Greengrocer_Self_Checkout
 
       
         
-
+        //sets the position of the grid 
         private void GridPozition(int a,int b)
         {
             Grid.SetColumn(gr, a);
             Grid.SetRow(gr, b);
         }
        
+        //loads the buttons 
         public Grid GridButon()
         {  
              buttoncount = (int)Math.Sqrt(MainWindow.fufu.Count) + 1;
@@ -185,6 +186,7 @@ namespace Greengrocer_Self_Checkout
             return gr;
             
         }
+        //changes  the grid to the match the vegetables class
         public Grid GridButonSwap()
         {
             gr.Children.Clear();

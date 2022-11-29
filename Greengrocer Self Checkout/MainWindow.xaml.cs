@@ -58,10 +58,7 @@ namespace Greengrocer_Self_Checkout
 
 
 
-        private void Mainthing_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-
-        }
+       
 
         private void Done_Click(object sender, RoutedEventArgs e)
         {
@@ -89,7 +86,7 @@ namespace Greengrocer_Self_Checkout
             
            
         }
-
+        //swaps the tabels between vegetables and fruits
         private void Change_Click(object sender, RoutedEventArgs e)
         { grid2.Children.Clear();
             grid1.Children.Remove(grid2);
@@ -113,7 +110,7 @@ namespace Greengrocer_Self_Checkout
         }
 
 
-
+        //to make it more interactive 
         private void Weight_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
