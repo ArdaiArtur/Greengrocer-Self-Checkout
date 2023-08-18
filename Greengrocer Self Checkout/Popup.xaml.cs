@@ -48,5 +48,10 @@ namespace Greengrocer_Self_Checkout
             this.Close();
            
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

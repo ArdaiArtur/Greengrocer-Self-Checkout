@@ -30,7 +30,7 @@ namespace Greengrocer_Self_Checkout
         public static double multi = 0;
         public static double SelecWeight ;
         public static dynamic Getter;
-        public static List<dynamic> lis;
+       
         public ButtonLoader bl = new ButtonLoader();
         public MainWindow()
         {
@@ -39,7 +39,7 @@ namespace Greengrocer_Self_Checkout
             InitializeComponent();
             // grid1.Children.Add(  bl.GridButon());
             grid2 = bl.GridButon();
-
+            bl.ButtonClicked += Event_ButtonClicked;
             grid1.Children.Add(grid2);
             Change.FontSize = 30;
             Change.Content = "Vegetables";
@@ -56,9 +56,22 @@ namespace Greengrocer_Self_Checkout
             
         }
 
+        private void Event_ButtonClicked(object sender, EventArgs e)
+        {
+            // Handle button click
+            try
+            {
+                Show.Text = Math.Round((multi * Convert.ToDouble(Weight.Text)), 2).ToString();
+
+            }
+            catch (Exception)
+            {
+                Show.Text = "Invalid weight";
+
+            }
+        }
 
 
-       
 
         private void Done_Click(object sender, RoutedEventArgs e)
         {
@@ -125,19 +138,7 @@ namespace Greengrocer_Self_Checkout
             }
         }
 
-        private void grid1_MouseMove(object sender, MouseEventArgs e)
-        {
-            try
-            {
-                Show.Text = Math.Round((multi * Convert.ToDouble(Weight.Text)), 2).ToString();
-
-            }
-            catch (Exception)
-            {
-                Show.Text = "Invalid weight";
-
-            }
-        }
+       
     }
 }
 

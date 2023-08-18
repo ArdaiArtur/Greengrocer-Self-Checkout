@@ -4,13 +4,8 @@ using System.Text;
 
 namespace Greengrocer_Self_Checkout
 {
-  public  class Vegetables
+  public  class Vegetables : CommonThings
     {
-        public int Id { get; set; }
-        public String Name { get; set; }
-        public double Price { get; set; }
-        public double Count { get; set; }
-
-        public DateTime Date { get; set; }
+       
     }
 }

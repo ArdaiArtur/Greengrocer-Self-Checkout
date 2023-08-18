@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Greengrocer_Self_Checkout"
         mc:Ignorable="d"
-        Title="Popup" Height="450" Width="400">
+        Title="Popup" Height="500" Width="400">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"></ColumnDefinition>
@@ -23,6 +23,7 @@
             <Label x:Name="amaount" FontSize="25">Amaount:</Label>
             <Label x:Name="price" FontSize="25">Price:</Label>
             <Label x:Name="date" FontSize="25">Date:</Label>
+            <Label x:Name="AllItems" FontSize="25">Total:</Label>
             <Button Name="Finish" Content="OK" Margin="40" Padding="10" Click="Finish_Click" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" BorderBrush="DarkCyan" FontSize="20" BorderThickness="2">
                 <Button.Background>
                     <RadialGradientBrush >
@@ -43,6 +44,8 @@
             <TextBlock x:Name="Amaount" FontSize="25" Text=""  Padding="5" Width="250"></TextBlock>
             <TextBlock x:Name="Pprice" FontSize="25" Text="" Padding="5"></TextBlock>
             <TextBlock x:Name="ddate" FontSize="25" Text="" Padding="5"></TextBlock>
+            <TextBlock x:Name="ALlitems" FontSize="25" Text="" Padding="5"></TextBlock>
         </StackPanel>
+        <Button Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Height="55" Width="50" Click="Button_Click" >?</Button>
     </Grid>
 </Window>

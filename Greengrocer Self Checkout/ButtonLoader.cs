@@ -14,7 +14,7 @@ namespace Greengrocer_Self_Checkout
     public class ButtonLoader : DataGetter
     {
         private readonly string con = Properties.Settings.Default.DataB;
-        private readonly Grid  gr ;
+        private Grid  gr ;
         private int buttoncount;
         private dynamic ShowePrice;
        
@@ -23,7 +23,13 @@ namespace Greengrocer_Self_Checkout
             GetInList(con);
             gr = new Grid();
         }
-        
+        public event EventHandler ButtonClicked;
+
+        protected virtual void OnButtonClicked()
+        {
+            ButtonClicked?.Invoke(this, EventArgs.Empty);
+        }
+
         private void GridSize(int size)
         {
             gr.ColumnDefinitions.Clear();
@@ -141,6 +147,7 @@ namespace Greengrocer_Self_Checkout
         public void Button_Click(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
+           
             //getting a fruit or vegi class from the lists by the name of the button which we selected  
             dynamic value;
             try
@@ -160,8 +167,8 @@ namespace Greengrocer_Self_Checkout
             }
             MainWindow.Getter = value;
             MainWindow.multi = value.Price;
-            
-          
+            OnButtonClicked();
+
 
         }
 
@@ -181,7 +188,7 @@ namespace Greengrocer_Self_Checkout
             GridSize(buttoncount);
             
             GridItemFufu(buttoncount,MainWindow.fufu);
-            GridPozition(1, 1);
+            GridPozition(1, 2);
             ShowePrice = MainWindow.fufu;
             return gr;
             
@@ -193,7 +200,7 @@ namespace Greengrocer_Self_Checkout
             buttoncount = (int)Math.Sqrt(MainWindow.veve.Count) + 1;
             GridSize(buttoncount);
             GridItemFufu(buttoncount, MainWindow.veve);
-            GridPozition(1, 1);
+            GridPozition(1, 2);
             ShowePrice = MainWindow.veve;
             return gr;
         }
