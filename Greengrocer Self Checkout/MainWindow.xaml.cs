@@ -22,30 +22,29 @@ namespace Greengrocer_Self_Checkout
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window 
     {
         
-        public static List<Fruit> fufu = new List<Fruit>();
-        public static List<Vegetables> veve = new List<Vegetables>();
-        public static double multi = 0;
-        public static double SelecWeight ;
-        public static dynamic Getter;
+        public static List<CommonThings> fufu = new List<CommonThings>();    
+        public static List<BoughtItems> BoughtItemsList = new List<BoughtItems>();
+        public static double TotalPrice ;
+        public static CommonThings InfoOfProduct=new CommonThings();
+       
        
         public ButtonLoader bl = new ButtonLoader();
         public MainWindow()
         {
             
-          this.DataContext =Getter ;
+            
             InitializeComponent();
             // grid1.Children.Add(  bl.GridButon());
-            grid2 = bl.GridButon();
+            //grid2 = bl.GridButon("Fruits");
             bl.ButtonClicked += Event_ButtonClicked;
-            grid1.Children.Add(grid2);
-            Change.FontSize = 30;
-            Change.Content = "Vegetables";
+            // grid1.Children.Add(grid2);
+            
             try
             {
-                Show.Text = (multi * Convert.ToDouble(Weight.Text)).ToString();
+                Show.Text = (InfoOfProduct.Price * Convert.ToDouble(Weight.Text)).ToString();
             }
             catch (Exception)
             {
@@ -58,17 +57,36 @@ namespace Greengrocer_Self_Checkout
 
         private void Event_ButtonClicked(object sender, EventArgs e)
         {
+            double Value = 0;
+            
             // Handle button click
             try
-            {
-                Show.Text = Math.Round((multi * Convert.ToDouble(Weight.Text)), 2).ToString();
-
+            {   double TextWeight = Convert.ToDouble(Weight.Text);
+                Value = Math.Round((InfoOfProduct.Price * TextWeight), 2);
+             if (Weight.Text != "0")
+                {
+                  BoughtItems items =new BoughtItems
+                  { 
+                  Id = InfoOfProduct.Id,
+                  Name=InfoOfProduct.Name,
+                  Count= InfoOfProduct.Count,
+                  Price= InfoOfProduct.Price,
+                  Date= InfoOfProduct.Date,
+                  Weight = TextWeight
+                  };
+                    
+                  BoughtItemsList.Add(items);         
+                  ShoppingList.Items.Add($"{InfoOfProduct.Name}  {InfoOfProduct.Price}*{Weight.Text} = {Value}");
+                  TotalPrice += Value;
+                  Show.Text = Math.Round(TotalPrice, 2).ToString();
+                }
             }
             catch (Exception)
             {
-                Show.Text = "Invalid weight";
+                Show.Text = "Invalid weight ";
 
             }
+           
         }
 
 
@@ -79,7 +97,7 @@ namespace Greengrocer_Self_Checkout
             // Show.Text = b.Name;
             try
             {
-                SelecWeight = Convert.ToDouble(Weight.Text);
+               
                 Popup popup = new Popup();
                 try
                 {
@@ -99,36 +117,17 @@ namespace Greengrocer_Self_Checkout
             
            
         }
-        //swaps the tabels between vegetables and fruits
-        private void Change_Click(object sender, RoutedEventArgs e)
-        { grid2.Children.Clear();
-            grid1.Children.Remove(grid2);
-
-            // grid1.Children.Add(  bl.GridButon());
-#pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast
-            if (Change.Content != "Fruits")
-#pragma warning restore CS0252 // Possible unintended reference comparison; left hand side needs cast
-            {
-                Change.FontSize = 40;
-                grid2 = bl.GridButonSwap();
-                Change.Content = "Fruits";
-            }
-            else
-            {
-                Change.FontSize = 30;
-                grid2 = bl.GridButon();
-                Change.Content = "Vegetables";
-            }
-            grid1.Children.Add(grid2);
-        }
+       
+       
 
 
         //to make it more interactive 
         private void Weight_TextChanged(object sender, TextChangedEventArgs e)
         {
+            double Value=0;
             try
             {
-             Show.Text = Math.Round((multi * Convert.ToDouble(Weight.Text)), 2).ToString();
+             Value = Math.Round((InfoOfProduct.Price * Convert.ToDouble(Weight.Text)), 2);
 
             }
             catch (Exception)
@@ -136,9 +135,42 @@ namespace Greengrocer_Self_Checkout
                 Show.Text = "Invalid weight";
 
             }
+           
+            
+
         }
 
-       
+        private void VegetabldeB_Click(object sender, RoutedEventArgs e)
+        { 
+
+            grid2.Children.Clear();
+            grid1.Children.Remove(grid2);
+            grid2 = bl.GridButon("Vegetables"); 
+            grid1.Children.Add(grid2);
+        }
+
+        private void FruitB_Click(object sender, RoutedEventArgs e)
+        {
+            grid2.Children.Clear();
+            grid1.Children.Remove(grid2);
+            grid2 = bl.GridButon("Fruits");
+            grid1.Children.Add(grid2);
+        }
+
+        private void DelList_Click(object sender, RoutedEventArgs e)
+        {
+            
+           
+            if (ShoppingList.SelectedItem != null)
+            {
+                string[] s = ShoppingList.SelectedItem.ToString().Split(" ");
+                MessageBox.Show(s[0] + "xlx" + s[1] + "xlx" + s[2] + "l");
+                TotalPrice -=Convert.ToDouble( s[s.Length - 1]);
+                ShoppingList.Items.Remove(ShoppingList.SelectedItem);
+                BoughtItemsList.Remove(BoughtItemsList.FirstOrDefault(item => item.Name == s[0] && item.Weight == Convert.ToDouble( s[2].Split('*')[1] )));
+            }
+            Show.Text = Math.Round(TotalPrice, 2).ToString();
+        }
     }
 }
 

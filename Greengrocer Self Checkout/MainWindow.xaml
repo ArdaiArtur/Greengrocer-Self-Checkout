@@ -12,6 +12,9 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="150"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
@@ -22,7 +25,7 @@
             <RowDefinition Height="100"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="grid2" Grid.Row="2" Grid.Column="1" Background="Red" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid x:Name="grid2" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="151*"/>
                 <ColumnDefinition Width="249*"/>
@@ -32,7 +35,7 @@
 
 
         </Grid>
-        <Button x:Name="Done" Grid.Column="2" Grid.Row="3" Content="Pay" FontSize="40" Width="auto" Height="auto" Click="Done_Click" >
+        <Button x:Name="Done" Grid.Column="5" Grid.Row="3" Content="Pay" FontSize="40" Width="auto" Height="auto" Click="Done_Click" >
             <Button.Background>
                 <RadialGradientBrush >
                     <GradientStop Color="White" Offset="0"/>
@@ -47,9 +50,9 @@
             </Button.Resources>
         </Button>
         <TextBlock x:Name="ShowPrice" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Width="200"  Text="Price:" FontSize="60"></TextBlock>
-        <TextBlock x:Name="Show" Grid.Column="1" Grid.Row="3"    HorizontalAlignment="Center" Width="400" TextTrimming="WordEllipsis" TextWrapping="WrapWithOverflow"  Foreground="Black"   Text="" FontSize="60"></TextBlock>
-        <TextBox x:Name="Weight" Text="0" Grid.Column="2" Grid.Row="1" VerticalAlignment="Top"  Height="60"    FontSize="40" TextChanged="Weight_TextChanged"></TextBox>
-        <Button x:Name="Change" Grid.Column="1" Grid.Row="1"  Content="fufu"  Height="100" VerticalAlignment="Center" Click="Change_Click">
+        <TextBlock x:Name="Show" Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="3"    HorizontalAlignment="Center" Width="400" TextTrimming="WordEllipsis" TextWrapping="WrapWithOverflow"  Foreground="Black"   Text="" FontSize="60"></TextBlock>
+        <TextBox x:Name="Weight" Text="0" Grid.Column="5" Grid.Row="1" VerticalAlignment="Top"  Height="60"    FontSize="40" TextChanged="Weight_TextChanged"></TextBox>
+        <Button x:Name="VegetabldeB" FontSize="30" Grid.Column="1" Grid.Row="1"  Content="Vegetablde"  Height="100" VerticalAlignment="Center" Click="VegetabldeB_Click">
             <Button.Background>
                 <RadialGradientBrush >
                     <GradientStop Color="White" Offset="0"/>
@@ -63,8 +66,63 @@
                 </Style>
             </Button.Resources>
         </Button>
-       
-        
+        <Button x:Name="FruitB" FontSize="30" Grid.Column="2" Grid.Row="1"  Content="Fruits"  Height="100" VerticalAlignment="Center" Click="FruitB_Click">
+            <Button.Background>
+                <RadialGradientBrush >
+                    <GradientStop Color="White" Offset="0"/>
+                    <GradientStop Color="ForestGreen" Offset="2"/>
+                    <GradientStop Color="AliceBlue" Offset="0.136"/>
+                </RadialGradientBrush>
+            </Button.Background>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button x:Name="MeaatB" FontSize="30" Grid.Column="3" Grid.Row="1"  Content="Meat"  Height="100" VerticalAlignment="Center" Click="FruitB_Click">
+            <Button.Background>
+                <RadialGradientBrush >
+                    <GradientStop Color="White" Offset="0"/>
+                    <GradientStop Color="ForestGreen" Offset="2"/>
+                    <GradientStop Color="AliceBlue" Offset="0.136"/>
+                </RadialGradientBrush>
+            </Button.Background>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button x:Name="DairyB" FontSize="30" Grid.Column="4" Grid.Row="1"  Content="Dairy"  Height="100" VerticalAlignment="Center" Click="FruitB_Click">
+            <Button.Background>
+                <RadialGradientBrush >
+                    <GradientStop Color="White" Offset="0"/>
+                    <GradientStop Color="ForestGreen" Offset="2"/>
+                    <GradientStop Color="AliceBlue" Offset="0.136"/>
+                </RadialGradientBrush>
+            </Button.Background>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <ListBox x:Name="ShoppingList" Grid.Row="2" Grid.Column="5" Width="auto" Height="auto" Margin="0,0,0,50"></ListBox>
+        <Button x:Name="DelList" Grid.Column="5" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="50" Width="50" Margin="0,0,10,0" Click="DelList_Click">
+            <Button.Background>
+                <RadialGradientBrush >
+                    <GradientStop Color="White" Offset="0"/>
+                    <GradientStop Color="ForestGreen" Offset="2"/>
+                    <GradientStop Color="AliceBlue" Offset="0.136"/>
+                </RadialGradientBrush>
+            </Button.Background>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources> Delite</Button>
+
     </Grid>
    
 </Window>

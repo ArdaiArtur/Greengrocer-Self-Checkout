@@ -9,6 +9,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 
 namespace Greengrocer_Self_Checkout
@@ -19,21 +20,16 @@ namespace Greengrocer_Self_Checkout
     public partial class Popup : Window
     {
         public Popup()
-        {
-           this.DataContext =MainWindow.Getter ;
+        {   
             InitializeComponent();
 
-
-                Amaount.Text = MainWindow.SelecWeight.ToString();
-            try
+            if( MainWindow.BoughtItemsList.Count>0)
+            foreach (var item in MainWindow.BoughtItemsList)
             {
-                 Pprice.Text = Math.Round(MainWindow.Getter.Price * MainWindow.SelecWeight,2).ToString();
+                string s = $"{item.Name}  {item.Price}*{item.Weight} = {Math.Round( item.Price * item.Weight,2)}";
+                Comb.Items.Add(s);
             }
-            catch (Exception)
-            {
-
-                
-            }
+            ALlitems.Text=MainWindow.TotalPrice.ToString();
                
                 ddate.Text += DateTime.Now.ToString();
             

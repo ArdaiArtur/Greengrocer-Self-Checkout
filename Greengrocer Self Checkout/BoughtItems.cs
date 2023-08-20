@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Greengrocer_Self_Checkout
 {
-  public  class Vegetables : CommonThings
+  public  class BoughtItems:CommonThings
     {
-       
+        public double Weight { get; set; }
     }
 }

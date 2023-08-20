@@ -7,21 +7,23 @@ using System.Data.SqlClient;
 
 namespace Greengrocer_Self_Checkout
 {
-  public  abstract class DataGetter
+  public  class DataGetter
     {
         private readonly string con = Properties.Settings.Default.DataB;
-        //there are only 2 tabels so i use 2 list for each tabel to load the data from it 
-        public void GetInList(string con)
+        //reading from tabels the information of the products
+        
+        public void GetInList(string database)
         {
-            SqlConnection coco = new SqlConnection(con);
+
+            SqlConnection coco = new SqlConnection(this.con);
             coco.Open();
             SqlCommand cmd = coco.CreateCommand();
             SqlDataReader DR;
-            cmd.CommandText = "SELECT * FROM Fruits";
+            cmd.CommandText = "SELECT * FROM "+database;
             DR = cmd.ExecuteReader();
             while (DR.Read())
             {
-                Fruit f = new Fruit();
+                CommonThings f = new CommonThings();
                 f.Id = (int)DR.GetValue(0);
                 f.Name = (string)DR.GetValue(1);
                 f.Price=Convert.ToDouble( DR.GetValue(2));
@@ -30,25 +32,12 @@ namespace Greengrocer_Self_Checkout
                MainWindow.fufu.Add(f);
             }
             coco.Close();
-            coco.Open();
-            SqlCommand veg = coco.CreateCommand();
-            SqlDataReader vegDR;
-            veg.CommandText = "SELECT * FROM Vegetables";
-            vegDR = veg.ExecuteReader();
-            while (vegDR.Read())
-            {
-                Vegetables f = new Vegetables();
-                f.Id = (int)vegDR.GetValue(0);
-                f.Name = (string)vegDR.GetValue(1);
-                f.Price = Convert.ToDouble(vegDR.GetValue(2));
-                f.Count = Convert.ToDouble(vegDR.GetValue(3));
-                f.Date = (DateTime)vegDR.GetValue(4);
-                MainWindow.veve.Add(f);
-            }
+           
+           
 
 
 
-            coco.Close();
+            
         }
 
     }

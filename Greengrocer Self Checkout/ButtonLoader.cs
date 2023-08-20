@@ -13,17 +13,19 @@ namespace Greengrocer_Self_Checkout
 {
     public class ButtonLoader : DataGetter
     {
-        private readonly string con = Properties.Settings.Default.DataB;
+        public event EventHandler ButtonClicked;
         private Grid  gr ;
         private int buttoncount;
-        private dynamic ShowePrice;
+        
        
         public ButtonLoader()
         {
-            GetInList(con);
+            
+            
             gr = new Grid();
         }
-        public event EventHandler ButtonClicked;
+        
+
 
         protected virtual void OnButtonClicked()
         {
@@ -129,12 +131,12 @@ namespace Greengrocer_Self_Checkout
             }
             catch (Exception)
             {
-                var value = MainWindow.veve.First(item => item.Name == b.Name).Price;
+              /*  var value = MainWindow.veve.First(item => item.Name == b.Name).Price;
                 //getting a fruit or vegi class from the lists by the name of the button which we selected
                 //
                 if (MainWindow.veve.Count < 100)
                     b.FontSize = 66;
-                b.Content = value.ToString();
+                b.Content = value.ToString();*/
 
             }
            
@@ -147,29 +149,14 @@ namespace Greengrocer_Self_Checkout
         public void Button_Click(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
-           
             //getting a fruit or vegi class from the lists by the name of the button which we selected  
-            dynamic value;
-            try
-            {
-                 value = MainWindow.fufu.First(item => item.Name == b.Name);
-                //getting a fruit or vegi class from the lists by the name of the button which we selected
-                //
-                
-            }
-            catch (Exception)
-            {
-                 value = MainWindow.veve.First(item => item.Name == b.Name);
-                //getting a fruit or vegi class from the lists by the name of the button which we selected
-                //
-               
-
-            }
-            MainWindow.Getter = value;
-            MainWindow.multi = value.Price;
+            
+            MainWindow.InfoOfProduct = MainWindow.fufu.First(item => item.Name == b.Name);
+            //getting a fruit or vegi class from the lists by the name of the button which we selected
+            // 
+            // MainWindow.Getter = value;
+            //MainWindow.multi = value.Price;
             OnButtonClicked();
-
-
         }
 
       
@@ -179,22 +166,26 @@ namespace Greengrocer_Self_Checkout
         {
             Grid.SetColumn(gr, a);
             Grid.SetRow(gr, b);
+            Grid.SetColumnSpan(gr, a+3);
+            
         }
        
         //loads the buttons 
-        public Grid GridButon()
-        {  
-             buttoncount = (int)Math.Sqrt(MainWindow.fufu.Count) + 1;
+        public Grid GridButon(string s)
+        {
+            MainWindow.fufu.Clear();
+            GetInList(s);
+            buttoncount = (int)Math.Sqrt(MainWindow.fufu.Count) + 1;
             GridSize(buttoncount);
             
             GridItemFufu(buttoncount,MainWindow.fufu);
             GridPozition(1, 2);
-            ShowePrice = MainWindow.fufu;
+           // ShowePrice = MainWindow.fufu;
             return gr;
             
         }
         //changes  the grid to the match the vegetables class
-        public Grid GridButonSwap()
+       /* public Grid GridButonSwap()
         {
             gr.Children.Clear();
             buttoncount = (int)Math.Sqrt(MainWindow.veve.Count) + 1;
@@ -203,7 +194,7 @@ namespace Greengrocer_Self_Checkout
             GridPozition(1, 2);
             ShowePrice = MainWindow.veve;
             return gr;
-        }
+        }*/
 
     }
 }
