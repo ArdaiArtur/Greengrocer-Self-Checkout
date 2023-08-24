@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
+using Greengrocer_Self_Checkout.Comand;
+using Greengrocer_Self_Checkout.Model;
 
 namespace Greengrocer_Self_Checkout
 {
@@ -19,6 +21,8 @@ namespace Greengrocer_Self_Checkout
     /// </summary>
     public partial class Popup : Window
     {
+
+        public static event EventHandler MyPropertyChanged;
         public Popup()
         {   
             InitializeComponent();
@@ -29,7 +33,7 @@ namespace Greengrocer_Self_Checkout
                 string s = $"{item.Name}  {item.Price}*{item.Weight} = {Math.Round( item.Price * item.Weight,2)}";
                 Comb.Items.Add(s);
             }
-            ALlitems.Text=MainWindow.TotalPrice.ToString();
+            ALlitems.Text= Math.Round(MainWindow.TotalPrice, 2).ToString();
                
                 ddate.Text += DateTime.Now.ToString();
             
@@ -38,10 +42,28 @@ namespace Greengrocer_Self_Checkout
            
         }
 
-        private void Finish_Click(object sender, RoutedEventArgs e)
+        protected virtual void OnMyPropertyChanged()
         {
+            MyPropertyChanged?.Invoke(this, EventArgs.Empty);
+        }
 
+        private void Finish_Click(object sender, RoutedEventArgs e)
+        {   
+            DatatModification datatModification = new DatatModification();
+            foreach (var item in MainWindow.BoughtItemsList)
+            {
+                datatModification.IncreasCount(item.Id,item.Weight);
+            }
+            MainWindow.AllItems.Clear();
+            DataGetter dataGetter = new DataGetter();
+            dataGetter.GetInList();
+            MainWindow.BoughtItemsList.Clear();
+            MainWindow.TotalPrice = 0;
+            OnMyPropertyChanged();
+            
+            
             this.Close();
+            
            
         }
 

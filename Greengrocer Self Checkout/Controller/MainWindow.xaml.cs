@@ -16,6 +16,7 @@ using System.Data.Entity;
 using System.Windows.Threading;
 using System.Threading;
 using System.Windows.Controls.Primitives;
+using Greengrocer_Self_Checkout.Comand;
 
 namespace Greengrocer_Self_Checkout
 {
@@ -24,24 +25,22 @@ namespace Greengrocer_Self_Checkout
     /// </summary>
     public partial class MainWindow : Window 
     {
-        
+
+        public static List<CommonThings> AllItems = new List<CommonThings>();
         public static List<CommonThings> fufu = new List<CommonThings>();    
         public static List<BoughtItems> BoughtItemsList = new List<BoughtItems>();
         public static double TotalPrice ;
         public static CommonThings InfoOfProduct=new CommonThings();
-       
-       
+        public static UIElement previousContent;
         public ButtonLoader bl = new ButtonLoader();
+      
         public MainWindow()
         {
-            
-            
             InitializeComponent();
-            // grid1.Children.Add(  bl.GridButon());
-            //grid2 = bl.GridButon("Fruits");
+            bl.GetInList();
             bl.ButtonClicked += Event_ButtonClicked;
-            // grid1.Children.Add(grid2);
-            
+            Popup.MyPropertyChanged+= MyInstance_MyPropertyChanged;
+
             try
             {
                 Show.Text = (InfoOfProduct.Price * Convert.ToDouble(Weight.Text)).ToString();
@@ -50,11 +49,12 @@ namespace Greengrocer_Self_Checkout
             {
 
                 Show.Text = "Invalid number";
-            }
-           
-            
+            } 
         }
-
+        private  void MyInstance_MyPropertyChanged(object sender, EventArgs e)
+        {
+            Show.Text = Math.Round(TotalPrice, 2).ToString();
+        }
         private void Event_ButtonClicked(object sender, EventArgs e)
         {
             double Value = 0;
@@ -65,14 +65,15 @@ namespace Greengrocer_Self_Checkout
                 Value = Math.Round((InfoOfProduct.Price * TextWeight), 2);
              if (Weight.Text != "0")
                 {
-                  BoughtItems items =new BoughtItems
-                  { 
-                  Id = InfoOfProduct.Id,
-                  Name=InfoOfProduct.Name,
-                  Count= InfoOfProduct.Count,
-                  Price= InfoOfProduct.Price,
-                  Date= InfoOfProduct.Date,
-                  Weight = TextWeight
+                    BoughtItems items = new BoughtItems
+                    {
+                        Id = InfoOfProduct.Id,
+                        Name = InfoOfProduct.Name,
+                        Count = InfoOfProduct.Count,
+                        Price = InfoOfProduct.Price,
+                        Date = InfoOfProduct.Date,
+                        Weight = TextWeight,
+                        ItemType = InfoOfProduct.ItemType,
                   };
                     
                   BoughtItemsList.Add(items);         
@@ -88,25 +89,33 @@ namespace Greengrocer_Self_Checkout
             }
            
         }
-
-
-
         private void Done_Click(object sender, RoutedEventArgs e)
         {
-            Button b = (Button)sender;
+           // Button b = (Button)sender;
             // Show.Text = b.Name;
             try
             {
-               
-                Popup popup = new Popup();
-                try
+                if (!Weight.Text.Equals("ADDITEM123"))
                 {
-                popup.Show();
-                }
-                catch (Exception)
-                {
+                    Popup popup = new Popup();
+                    try
+                    {
+                        popup.Show();
+                    }
+                    catch (Exception)
+                    {
 
-                
+
+                    }
+                }
+                else
+                {
+                    if (Content != null)
+                    {
+
+                        previousContent = (UIElement)Content;
+                    }
+                    Content = new AddItemPage();
                 }
             }
             catch (Exception)
@@ -114,13 +123,10 @@ namespace Greengrocer_Self_Checkout
 
                 
             }
-            
+            ShoppingList.Items.Clear();
+               
            
         }
-       
-       
-
-
         //to make it more interactive 
         private void Weight_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -132,7 +138,9 @@ namespace Greengrocer_Self_Checkout
             }
             catch (Exception)
             {
+                if( double.TryParse(Weight.Text, out double doubleValue))
                 Show.Text = "Invalid weight";
+                else { Show.Text = "Select Items"; }
 
             }
            
@@ -145,7 +153,7 @@ namespace Greengrocer_Self_Checkout
 
             grid2.Children.Clear();
             grid1.Children.Remove(grid2);
-            grid2 = bl.GridButon("Vegetables"); 
+            grid2 = bl.GridButon("Vegetable"); 
             grid1.Children.Add(grid2);
         }
 
@@ -153,10 +161,23 @@ namespace Greengrocer_Self_Checkout
         {
             grid2.Children.Clear();
             grid1.Children.Remove(grid2);
-            grid2 = bl.GridButon("Fruits");
+            grid2 = bl.GridButon("Fruit");
             grid1.Children.Add(grid2);
         }
-
+        private void Meat_Click(object sender, RoutedEventArgs e)
+        {
+            grid2.Children.Clear();
+            grid1.Children.Remove(grid2);
+            grid2 = bl.GridButon("Meat");
+            grid1.Children.Add(grid2);
+        }
+        private void Dairy_Click(object sender, RoutedEventArgs e)
+        {
+            grid2.Children.Clear();
+            grid1.Children.Remove(grid2);
+            grid2 = bl.GridButon("Dairy");
+            grid1.Children.Add(grid2);
+        }
         private void DelList_Click(object sender, RoutedEventArgs e)
         {
             
@@ -164,19 +185,13 @@ namespace Greengrocer_Self_Checkout
             if (ShoppingList.SelectedItem != null)
             {
                 string[] s = ShoppingList.SelectedItem.ToString().Split(" ");
-                MessageBox.Show(s[0] + "xlx" + s[1] + "xlx" + s[2] + "l");
+               
                 TotalPrice -=Convert.ToDouble( s[s.Length - 1]);
                 ShoppingList.Items.Remove(ShoppingList.SelectedItem);
                 BoughtItemsList.Remove(BoughtItemsList.FirstOrDefault(item => item.Name == s[0] && item.Weight == Convert.ToDouble( s[2].Split('*')[1] )));
             }
+
             Show.Text = Math.Round(TotalPrice, 2).ToString();
         }
     }
 }
-
-
-
-
-
-
-

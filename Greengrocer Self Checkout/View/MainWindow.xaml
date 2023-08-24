@@ -80,7 +80,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="MeaatB" FontSize="30" Grid.Column="3" Grid.Row="1"  Content="Meat"  Height="100" VerticalAlignment="Center" Click="FruitB_Click">
+        <Button x:Name="MeaatB" FontSize="30" Grid.Column="3" Grid.Row="1"  Content="Meat"  Height="100" VerticalAlignment="Center" Click="Meat_Click" >
             <Button.Background>
                 <RadialGradientBrush >
                     <GradientStop Color="White" Offset="0"/>
@@ -94,7 +94,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="DairyB" FontSize="30" Grid.Column="4" Grid.Row="1"  Content="Dairy"  Height="100" VerticalAlignment="Center" Click="FruitB_Click">
+        <Button x:Name="DairyB" FontSize="30" Grid.Column="4" Grid.Row="1"  Content="Dairy"  Height="100" VerticalAlignment="Center" Click="Dairy_Click">
             <Button.Background>
                 <RadialGradientBrush >
                     <GradientStop Color="White" Offset="0"/>
